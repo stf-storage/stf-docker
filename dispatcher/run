@@ -1,0 +1,12 @@
+#!/bin/sh
+
+DIR=$(dirname "$0")
+chdir $DIR
+
+if [ -z $STF_HOST_ID ]; then
+    echo "You MUST set a unique STF_HOST_ID for each dispatcher you run"
+    exit 1
+fi
+export PATH=/opt/local/perl-5.16.3/bin:$PATH
+exec carton exec -- plackup -Ilib -a etc/dispatcher.psgi
+
